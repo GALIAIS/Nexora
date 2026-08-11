@@ -21,8 +21,8 @@ jobs:
       - name: Reject engine source and local planning material
         shell: bash
         run: |
-          private_paths="$(git ls-files -- docs engine sdk notes.md task_plan.md buf.gen.yaml buf.yaml)"
-          test -z "$private_paths"
+          bash .github/scripts/check-public-boundary.sh --self-test
+          bash .github/scripts/check-public-boundary.sh
 
   web-game:
     name: Automation Colony web game
