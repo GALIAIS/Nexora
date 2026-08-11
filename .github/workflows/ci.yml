@@ -13,6 +13,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  repository-hygiene:
+    name: Game repository boundary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reject engine source and local planning material
+        shell: bash
+        run: |
+          private_paths="$(git ls-files -- docs engine sdk notes.md task_plan.md buf.gen.yaml buf.yaml)"
+          test -z "$private_paths"
+
   web-game:
     name: Automation Colony web game
     runs-on: ubuntu-latest
@@ -27,3 +38,13 @@ jobs:
         run: npm test
       - name: Build game client and server
         run: npm run build
+
+  rust-rules:
+    name: Automation Colony rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.97.1 --profile minimal
+      - name: Run independent rules tests
+        run: cargo test --manifest-path Cargo.toml -p automation-colony --locked
