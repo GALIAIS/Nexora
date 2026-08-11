@@ -55,10 +55,14 @@ if [[ "${1:-}" == '--self-test' ]]; then
   exit 0
 fi
 
-violations="$(find_violations "$(git ls-files)")"
+repository_paths="$({
+  git ls-files
+  git log --all --format= --name-only
+} | sed '/^$/d' | sort -u)"
+violations="$(find_violations "$repository_paths")"
 
 if [[ -n "$violations" ]]; then
-  printf '%s\n' 'Engine source or private planning records are tracked:' >&2
+  printf '%s\n' 'Engine source or private planning records exist in the index or reachable Git history:' >&2
   while IFS= read -r violation; do
     printf '  %s\n' "$violation" >&2
   done <<< "$violations"

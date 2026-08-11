@@ -21,6 +21,15 @@ packages/automation-colony/target/
 /buf.gen.yaml
 /planning/
 /roadmap/
+/internal/
+/private/
+/runbook/
+/runbooks/
+/decisions/
+/BACKLOG.md
+/backlog.md
+/MILESTONES.md
+/milestones.md
 data/world.json
 data/player-code.js
 *.log
