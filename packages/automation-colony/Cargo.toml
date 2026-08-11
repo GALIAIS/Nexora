@@ -1,0 +1,16 @@
+[package]
+name = "automation-colony"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+nexora-foundation-core = { git = "https://github.com/GALIAIS/Nexora-Engine.git", rev = "acda3d56ef8744d2178a8c1d49c9507121fdbc0a" }
+nexora-foundation-spatial = { git = "https://github.com/GALIAIS/Nexora-Engine.git", rev = "acda3d56ef8744d2178a8c1d49c9507121fdbc0a" }
+nexora-kernel = { git = "https://github.com/GALIAIS/Nexora-Engine.git", rev = "acda3d56ef8744d2178a8c1d49c9507121fdbc0a" }
+nexora-package = { git = "https://github.com/GALIAIS/Nexora-Engine.git", rev = "acda3d56ef8744d2178a8c1d49c9507121fdbc0a" }
+nexora-runtime = { git = "https://github.com/GALIAIS/Nexora-Engine.git", rev = "acda3d56ef8744d2178a8c1d49c9507121fdbc0a" }
+
+[lints]
+workspace = true

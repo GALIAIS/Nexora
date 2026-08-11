@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "dev.nexora.example.automation-colony.content",
+  "displayName": "Automation Colony Content",
+  "description": "Versioned room and economy tuning for the Automation Colony example.",
+  "version": "0.1.0",
+  "kind": "content",
+  "license": "MIT OR Apache-2.0",
+  "engine": {
+    "version": ">=0.1.0 <0.2.0",
+    "api": ">=0.1.0 <0.2.0",
+    "protocol": ">=1.0.0 <2.0.0"
+  },
+  "content": [
+    {
+      "id": "automation-colony.content.scenario",
+      "path": "package-content/scenario.json",
+      "schema": "package-content/scenario.schema.json",
+      "required": true
+    }
+  ],
+  "build": {
+    "toolchain": "nexora-cli",
+    "toolchainVersion": "0.1.0",
+    "reproducible": true
+  }
+}

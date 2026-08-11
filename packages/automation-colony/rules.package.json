@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "dev.nexora.example.automation-colony.rules",
+  "displayName": "Automation Colony Rules",
+  "description": "Authoritative source, production, navigation, inventory and controller systems for Automation Colony.",
+  "version": "0.1.0",
+  "kind": "game-module",
+  "license": "MIT OR Apache-2.0",
+  "engine": {
+    "version": ">=0.1.0 <0.2.0",
+    "api": ">=0.1.0 <0.2.0",
+    "protocol": ">=1.0.0 <2.0.0"
+  },
+  "entrypoints": [
+    {
+      "id": "dev.nexora.example.automation-colony.rules.builtin",
+      "runtime": "built-in-rust",
+      "path": "src/lib.rs",
+      "isolation": "trusted-native"
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "dev.nexora.foundation.core",
+      "version": "=0.1.0",
+      "scope": "runtime"
+    },
+    {
+      "id": "dev.nexora.foundation.spatial",
+      "version": "=0.1.0",
+      "scope": "runtime"
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "world.query",
+      "required": true,
+      "scope": {}
+    },
+    {
+      "name": "event.emit",
+      "required": true,
+      "scope": {}
+    }
+  ],
+  "budgets": {
+    "fuelPerStep": 30000000,
+    "memoryBytes": 134217728,
+    "queryUnitsPerStep": 500000,
+    "scannedRowsPerStep": 1000000,
+    "predicateOpsPerStep": 4000000,
+    "sortBytesPerStep": 67108864,
+    "commandsPerStep": 100000,
+    "eventsPerStep": 100000,
+    "logBytesPerStep": 2097152,
+    "outputBytesPerStep": 67108864,
+    "stateBytes": 67108864
+  },
+  "exports": {
+    "components": [
+      { "id": "automation-colony.kind", "localId": 1, "schemaVersion": 1 },
+      { "id": "automation-colony.position", "localId": 2, "schemaVersion": 1 },
+      { "id": "automation-colony.energy", "localId": 3, "schemaVersion": 1 },
+      { "id": "automation-colony.capacity", "localId": 4, "schemaVersion": 1 },
+      { "id": "automation-colony.work-power", "localId": 5, "schemaVersion": 1 },
+      { "id": "automation-colony.cooldown", "localId": 6, "schemaVersion": 1 },
+      { "id": "automation-colony.controller-level", "localId": 7, "schemaVersion": 1 },
+      { "id": "automation-colony.controller-progress", "localId": 8, "schemaVersion": 1 }
+    ],
+    "commands": [
+      { "id": "automation-colony.command.move", "localId": 9, "schemaVersion": 1 },
+      { "id": "automation-colony.command.harvest", "localId": 10, "schemaVersion": 1 },
+      { "id": "automation-colony.command.transfer", "localId": 11, "schemaVersion": 1 },
+      { "id": "automation-colony.command.upgrade", "localId": 12, "schemaVersion": 1 },
+      { "id": "automation-colony.command.spawn", "localId": 13, "schemaVersion": 1 }
+    ],
+    "events": [
+      { "id": "automation-colony.event.moved", "localId": 14, "schemaVersion": 1 },
+      { "id": "automation-colony.event.harvested", "localId": 15, "schemaVersion": 1 },
+      { "id": "automation-colony.event.transferred", "localId": 16, "schemaVersion": 1 },
+      { "id": "automation-colony.event.controller-upgraded", "localId": 17, "schemaVersion": 1 },
+      { "id": "automation-colony.event.unit-spawned", "localId": 18, "schemaVersion": 1 }
+    ],
+    "systems": [
+      {
+        "id": "automation-colony.maintenance-system",
+        "phase": "automation-colony.maintenance",
+        "reads": ["automation-colony.kind", "automation-colony.capacity"],
+        "writes": ["automation-colony.energy", "automation-colony.cooldown"]
+      },
+      {
+        "id": "automation-colony.production-system",
+        "phase": "automation-colony.production",
+        "reads": ["automation-colony.command.spawn", "automation-colony.energy"],
+        "writes": ["automation-colony.kind", "automation-colony.position", "automation-colony.event.unit-spawned"]
+      },
+      {
+        "id": "automation-colony.movement-system",
+        "phase": "automation-colony.movement",
+        "reads": ["automation-colony.command.move", "automation-colony.position"],
+        "writes": ["automation-colony.position", "automation-colony.event.moved"]
+      },
+      {
+        "id": "automation-colony.action-system",
+        "phase": "automation-colony.actions",
+        "reads": ["automation-colony.command.harvest", "automation-colony.command.transfer", "automation-colony.command.upgrade"],
+        "writes": ["automation-colony.energy", "automation-colony.controller-progress", "automation-colony.controller-level"]
+      }
+    ]
+  },
+  "build": {
+    "toolchain": "cargo",
+    "toolchainVersion": "1.97",
+    "reproducible": true
+  }
+}

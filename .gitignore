@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.vite/
+.playwright-cli/
+coverage/
+/target/
+packages/automation-colony/target/
+/.nexora/
+/output/
+/notes.md
+/task_plan.md
+data/world.json
+data/player-code.js
+*.log

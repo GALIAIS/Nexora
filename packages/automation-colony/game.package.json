@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "dev.nexora.example.automation-colony",
+  "displayName": "Automation Colony",
+  "description": "A programmable persistent-world example distributed as ordinary Nexora packages.",
+  "version": "0.1.0",
+  "kind": "game",
+  "license": "MIT OR Apache-2.0",
+  "engine": {
+    "version": ">=0.1.0 <0.2.0",
+    "api": ">=0.1.0 <0.2.0",
+    "protocol": ">=1.0.0 <2.0.0"
+  },
+  "runtime": {
+    "id": "nexora.runtime.deterministic-fixed",
+    "version": "0.1.0",
+    "phases": [
+      { "id": "automation-colony.maintenance" },
+      {
+        "id": "automation-colony.production",
+        "after": ["automation-colony.maintenance"]
+      },
+      {
+        "id": "automation-colony.movement",
+        "after": ["automation-colony.production"]
+      },
+      {
+        "id": "automation-colony.actions",
+        "after": ["automation-colony.movement"]
+      }
+    ],
+    "settings": {
+      "stepIntervalMs": 250,
+      "inputDelaySteps": 1
+    }
+  },
+  "dependencies": [
+    {
+      "id": "dev.nexora.example.automation-colony.rules",
+      "version": "=0.1.0",
+      "scope": "runtime"
+    },
+    {
+      "id": "dev.nexora.example.automation-colony.content",
+      "version": "=0.1.0",
+      "scope": "runtime"
+    },
+    {
+      "id": "dev.nexora.example.automation-colony.presentation",
+      "version": "=0.1.0",
+      "scope": "presentation"
+    }
+  ],
+  "build": {
+    "toolchain": "nexora-cli",
+    "toolchainVersion": "0.1.0",
+    "reproducible": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "0.1.0",
+  "id": "dev.nexora.example.automation-colony.presentation",
+  "displayName": "Automation Colony Presentation",
+  "description": "Persistent Web 2D presentation adapter for Automation Colony replication objects.",
+  "version": "0.1.0",
+  "kind": "presentation",
+  "license": "MIT OR Apache-2.0",
+  "engine": {
+    "version": ">=0.1.0 <0.2.0",
+    "api": ">=0.1.0 <0.2.0",
+    "protocol": ">=1.0.0 <2.0.0"
+  },
+  "entrypoints": [
+    {
+      "id": "dev.nexora.example.automation-colony.presentation.web",
+      "runtime": "web-esm",
+      "path": "presentation/index.mjs",
+      "isolation": "sandboxed-worker"
+    }
+  ],
+  "build": {
+    "toolchain": "nexora-cli",
+    "toolchainVersion": "0.1.0",
+    "reproducible": true
+  }
+}
